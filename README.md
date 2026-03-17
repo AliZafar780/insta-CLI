@@ -1,73 +1,81 @@
-# InstaCLI
+# 📸 InstaCLI - Terminal-Based Instagram Client
 
-InstaCLI is a distraction-free, terminal-based Instagram client with an AI-assisted workflow. It pairs a beautiful Textual TUI with a FastAPI backend, a modular AI layer, and a data layer powered by SQLAlchemy.
+> A distraction-free, terminal-based Instagram client with AI-assisted workflow
 
-## Highlights
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.8+-blue?style=flat&logo=python" alt="Python" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat" alt="License" />
+  <img src="https://img.shields.io/badge/FastAPI-Ready-009688?style=flat" alt="FastAPI" />
+</p>
 
-- **Textual TUI** with smooth navigation, themes, and keyboard shortcuts.
-- **FastAPI backend** with REST + WebSocket support.
-- **AI providers** (OpenAI, Anthropic, Ollama, or no-AI mode) with fallback logic.
-- **SQLite by default**, optional PostgreSQL support.
-- **Instagram Graph API integration** with a mock-data fallback.
-- **Distraction-free features**: content filtering, AI summaries, and smart notifications.
+---
 
-## Quick Start
+## ✨ Highlights
+
+- 🎨 **Textual TUI** — Beautiful terminal interface with smooth navigation
+- ⚡ **FastAPI Backend** — REST + WebSocket support
+- 🤖 **AI Providers** — OpenAI, Anthropic, Ollama support
+- 🗄️ **SQLite/PostgreSQL** — Flexible data storage
+- 📱 **Instagram Graph API** — Real Instagram integration
+- 🔕 **Distraction-Free** — Content filtering, AI summaries
+
+## 🚀 Quick Start
 
 ```bash
+# Clone and setup
+git clone https://github.com/AliZafar780/insta-CLI.git
+cd insta-CLI
+
+# Create virtual environment
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate  # Linux/Mac
+# .venv\Scripts\activate   # Windows
+
+# Install dependencies
 pip install -e .
+
+# Run the CLI
 instacli
-```
 
-Run the API server:
-
-```bash
+# Or run API server
 instacli --backend
 ```
 
-## Configuration
+## 🛠️ Tech Stack
 
-Configuration is driven by environment variables (optionally via `.env`).
+| Component | Technology |
+|:----------|:-----------|
+| TUI | Textual |
+| Backend | FastAPI |
+| Database | SQLite / PostgreSQL |
+| AI | OpenAI, Anthropic, Ollama |
+| API | Instagram Graph API |
 
-| Variable | Purpose | Default |
-| --- | --- | --- |
-| `INSTACLI_DATABASE_URL` | SQLAlchemy database URL | `sqlite+aiosqlite:///./instacli.db` |
-| `INSTACLI_AI_PROVIDER` | `openai`, `anthropic`, `ollama`, or `none` | `none` |
-| `INSTACLI_INSTAGRAM_MODE` | `live` or `mock` | `mock` |
-| `INSTACLI_THEME` | `dark` or `light` | `dark` |
-| `INSTACLI_API_HOST` | FastAPI host | `127.0.0.1` |
-| `INSTACLI_API_PORT` | FastAPI port | `8000` |
-| `INSTACLI_API_KEY` | Optional API key for REST/WebSocket | unset |
-
-## Architecture
+## 📁 Project Structure
 
 ```
-CLI (Textual)  <->  FastAPI  <->  Services  <->  SQLAlchemy
-                        |            |
-                        |            +--> AI Providers
-                        |
-                        +--> Instagram Graph API / Mock
+insta-CLI/
+├── instacli/         # Main package
+├── backend/         # FastAPI server
+├── ai/             # AI integrations
+└── requirements.txt # Dependencies
 ```
 
-## Feature Tour
+## ⚙️ Configuration
 
-- **Feed**: infinite scroll with AI-filtered highlights.
-- **Post viewer**: media preview, summaries, and smart actions.
-- **Profile**: stats, follower insights, and timeline summary.
-- **Compose**: AI caption assistance with tone control.
-- **Notifications**: intelligent digest summaries.
-- **Settings**: theme, moderation rules, and provider toggles.
+Create a `.env` file:
 
-## Development Notes
+```bash
+INSTAGRAM_USERNAME=your_username
+INSTAGRAM_PASSWORD=your_password
+AI_PROVIDER=ollama  # or openai, anthropic
+AI_API_KEY=your_api_key
+```
 
-- The project uses async/await throughout the backend, AI, and data layers.
-- AI integrations are optional; install extras for provider SDKs.
-- Instagram Graph API calls are encapsulated in the `instagram` module.
+## 📜 License
 
-## Roadmap
+MIT License
 
-- Real Graph API OAuth flow and media upload.
-- Richer media rendering in the TUI.
-- Advanced filtering with customizable policies.
+---
 
+*Instagram in your terminal 📸*
