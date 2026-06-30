@@ -3,7 +3,8 @@ from __future__ import annotations
 from datetime import datetime
 
 from fastapi import APIRouter, Depends
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
+from pydantic_core import UrlValidator
 
 from instacli.backend.app import get_service
 from instacli.services.insta_service import InstaService
@@ -38,6 +39,24 @@ class NotificationResponse(BaseModel):
 class ComposeRequest(BaseModel):
     caption: str
     media_url: str
+
+    @field_validator("caption")
+    @classmethod
+    def caption_must_be_valid(cls, v: str) -> str:
+        stripped = v.strip()
+        if not stripped:
+            raise ValueError("caption must not be empty")
+        if len(stripped) > 2200:
+            raise ValueError(f"caption must not exceed 2200 characters (got {len(stripped)})")
+        return stripped
+
+    @field_validator("media_url")
+    @classmethod
+    def media_url_must_be_valid(cls, v: str) -> str:
+        stripped = v.strip()
+        if not (stripped.startswith("http://") or stripped.startswith("https://")):
+            raise ValueError("media_url must be a valid HTTP or HTTPS URL")
+        return stripped
 
 
 class SearchRequest(BaseModel):

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import Protocol
@@ -154,6 +155,8 @@ class InstagramClientFactory:
     def build(mode: str) -> InstagramClient:
         mode = mode.lower()
         if mode == "live":
-            token = ""
+            token = os.getenv("INSTACLI_API_KEY")
+            if not token:
+                raise ValueError("INSTACLI_API_KEY environment variable must be set for live mode")
             return GraphInstagramClient(access_token=token)
         return MockInstagramClient()

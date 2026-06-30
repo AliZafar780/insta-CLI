@@ -17,7 +17,10 @@ def _get_service(app: FastAPI) -> InstaService:
 def _auth_dependency(x_api_key: str | None = Header(default=None)) -> None:
     configured = AppConfig.from_env().api_key
     if configured is None:
-        return
+        raise HTTPException(
+            status_code=500,
+            detail="API key not configured. Set the INSTACLI_API_KEY environment variable.",
+        )
     if x_api_key != configured:
         raise HTTPException(status_code=401, detail="Invalid API key")
 
@@ -27,7 +30,8 @@ def build_app(config: AppConfig) -> FastAPI:
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        # TODO: Restrict this to production frontend origin when deployed
+        allow_origins=["http://localhost:8000", "http://127.0.0.1:8000"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
