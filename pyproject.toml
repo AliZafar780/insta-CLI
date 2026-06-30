@@ -20,7 +20,7 @@ dependencies = [
 openai = ["openai>=1.12.0"]
 anthropic = ["anthropic>=0.17.0"]
 ollama = ["ollama>=0.1.7"]
-postgres = ["asyncpg>=0.29.0"]
+postgres = ["asyncpg>=0.31.0"]
 
 [project.scripts]
 instacli = "instacli.main:main"
